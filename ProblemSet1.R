@@ -17,12 +17,14 @@ try(suppressPackageStartupMessages(library(hrbrthemes,quietly = TRUE,warn.confli
 library(haven)                  # Importar bases Stata
 library(stats)  
 
+
      # 0.1 Definimos el directorio de trabajo
 
-setwd("C:/Users/ferna/OneDrive/Escritorio/ProblemSet1/CreatedData")
+setwd("C:/Users/lalo-/OneDrive/Documentos/Semestre 10/Microeconometria Avanzada/Tarea 1/Bases de Datos/BaseLimpia")
+
      # 0.2 Importamos la base
 
-datos <- as.data.frame(read_dta("Clean_Data.dta"))
+datos <- as.data.frame(read_dta("Clean_Data_1.dta"))
 
 ####### Comenzamos el an?lisis #######
 
@@ -30,7 +32,7 @@ datos <- as.data.frame(read_dta("Clean_Data.dta"))
 
 datos <- datos %>% drop_na()
 
-X <- datos[c(1:9, 19)]
+X <- datos[c(1:9,10, 19)]
 Z <- datos[c(1, 10:19)]
 
      # 1.0 Estimaci?n de los par?metros por dos pasos 
@@ -185,5 +187,37 @@ plot(eje_x, MTE_y,
      type="l",
      col="blue")
 
+# csv para MatLab
 
+X0 <- X %>% filter(higher_education == 0)
+X0 <- select(X0, -10)
 
+write.csv(X0,file = "X_0.csv",row.names = F)
+write_xlsx(X0,".xlsx")
+
+X1 <- X %>% filter(higher_education == 1)
+X1 <- select(X1, -10)
+
+write.csv(X1,file = "X_1.csv",row.names = F)
+
+Z1 <- Z %>% filter(higher_education == 1)
+Z1 <- Z1 %>% mutate(unos = 1)
+Z1 <- select(Z1, -2)
+
+write.csv(Z1,file = "Z_1.csv",row.names = F)
+
+Z0 <- Z %>% filter(higher_education == 0)
+Z0 <- Z0 %>% mutate(unos = 1)
+Z0 <- select(Z0, -2)
+
+write.csv(Z0,file = "Z_0.csv",row.names = F)
+
+Y0 <- datos %>% filter(higher_education == 0)
+Y0 <- select(Y0, 2)
+
+write.csv(Y0,file = "Y_0.csv",row.names = F)
+
+Y1 <- datos %>% filter(higher_education == 1)
+Y1 <- select(Y1, 2)
+
+write.csv(Y1, file = "Y_1.csv",row.names = F)
