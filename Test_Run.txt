@@ -1,0 +1,50 @@
+
+
+clc; clear all; close all;
+
+
+% Leemos los datos para los individuos que decidieron no tratarse
+
+xo = readtable('X_0.csv');
+yo = readtable('Y_0.csv');
+xo = xo(:, 3:10);
+zo = readtable('Z_0.csv');
+zo = zo(:, 2:10);
+
+xo = table2array(xo);
+yo = table2array(yo);
+zo = table2array(zo);
+
+
+% Leemos los datos para los individuos que decidieron tratarse
+
+x1 = readtable('X_1.csv');
+y1 = readtable('Y_1.csv');
+x1 = x1(:, 3:10);
+z1 = readtable('Z_1.csv');
+z1 = z1(:, 2:10);
+
+x1 = table2array(x1);
+y1 = table2array(y1);
+z1 = table2array(z1);
+
+x_inicial = zeros(1,29);
+
+
+
+[x,fval] = fminunc(@(v) - ML(v,xo,zo,yo,x1,z1,y1),x_inicial);
+
+sol = x;
+
+sol(1) = exp(sol(1));
+sol(2) = exp(sol(2));
+
+sol(3) = tanh(sol(3));
+sol(4) = tanh(sol(4));
+
+sol
+
+
+
+
+
