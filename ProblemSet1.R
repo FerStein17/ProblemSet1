@@ -21,6 +21,8 @@ library(stats)
      # 0.1 Definimos el directorio de trabajo
 
 setwd("C:/Users/lalo-/OneDrive/Documentos/Semestre 10/Microeconometria Avanzada/Tarea 1/Bases de Datos/BaseLimpia")
+## setwd("C:/Users/ferna/OneDrive/Escritorio/ProblemSet1")
+
 
      # 0.2 Importamos la base
 
